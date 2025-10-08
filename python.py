@@ -228,12 +228,15 @@ if uploaded_file is not None:
                 
                 Hãy trả lời câu hỏi của người dùng dựa trên dữ liệu này. Tuyệt đối không lặp lại toàn bộ bảng dữ liệu, chỉ tham chiếu các số liệu cụ thể khi cần thiết để hỗ trợ câu trả lời.
                 """
+                
+                # SỬA LỖI: Truyền system_instruction qua config
+                config = {"system_instruction": system_instruction}
 
                 # Sử dụng chat session để duy trì bối cảnh (context) cuộc trò chuyện
                 chat_session = client.chats.create(
                     model='gemini-2.5-flash', 
                     history=history_for_api,
-                    system_instruction=system_instruction
+                    config=config # Đã sửa lỗi: Dùng config thay vì system_instruction trực tiếp
                 )
                 
                 # Gửi tin nhắn mới nhất và stream phản hồi
